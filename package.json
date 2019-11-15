@@ -1,0 +1,35 @@
+{
+  "name": "hc-demo-app-javascript",
+  "version": "1.0.0",
+  "description": "Demo App that shows the OAuth flow and API calls",
+  "private": true,
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack",
+    "start:dev": "webpack-dev-server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/crispymtn/hc-demo-app-javascript.git"
+  },
+  "keywords": [
+    "OAuth",
+    "SPA"
+  ],
+  "author": "Crispy Mountain GmbH",
+  "bugs": {
+    "url": "https://github.com/crispymtn/hc-demo-app-javascript/issues"
+  },
+  "homepage": "https://github.com/crispymtn/hc-demo-app-javascript#readme",
+  "devDependencies": {
+    "webpack": "^4.41.2",
+    "webpack-cli": "^3.3.10",
+    "webpack-dev-server": "^3.9.0"
+  },
+  "dependencies": {
+    "core-js": "^2.5.7",
+    "dotenv-webpack": "^1.7.0",
+    "jso": "^4.1.1",
+    "pkce-challenge": "^2.0.0"
+  }
+}
