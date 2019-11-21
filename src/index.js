@@ -50,6 +50,7 @@ login.addEventListener("click", () => {
       "/oauth/authorize?client_id=" +
       process.env.DIRECTORY_OAUTH_CLIENT_ID +
       "&code_challenge_method=S256&code_challenge=" +
-      code_challenge
+      code_challenge +
+      "&scope=directory.person.r"
   );
 });
