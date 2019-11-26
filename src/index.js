@@ -49,6 +49,8 @@ login.addEventListener("click", () => {
     process.env.DIRECTORY_HOST +
       "/oauth/authorize?client_id=" +
       process.env.DIRECTORY_OAUTH_CLIENT_ID +
+      "&redirect_uri=" +
+      process.env.DIRECTORY_REDIRECT_URI +
       "&code_challenge_method=S256&code_challenge=" +
       code_challenge +
       "&scope=directory.person.r"
