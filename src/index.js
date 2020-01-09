@@ -11,16 +11,14 @@ login.addEventListener("click", () => {
   // Store code_verifier
   window.sessionStorage.setItem("code_verifier", code_verifier);
   // Open the page in a new window, then redirect back to the same page.
-  window.open(
-    process.env.DIRECTORY_HOST +
-      "/oauth/authorize?client_id=" +
-      process.env.DIRECTORY_OAUTH_CLIENT_ID +
-      "&redirect_uri=" +
-      process.env.DIRECTORY_REDIRECT_URI +
-      "&code_challenge_method=S256&code_challenge=" +
-      code_challenge +
-      "&scope=directory.person.r"
-  );
+  window.location.href = process.env.DIRECTORY_HOST +
+    "/oauth/authorize?client_id=" +
+    process.env.DIRECTORY_OAUTH_CLIENT_ID +
+    "&redirect_uri=" +
+    process.env.DIRECTORY_REDIRECT_URI +
+    "&code_challenge_method=S256&code_challenge=" +
+    code_challenge +
+    "&scope=directory.person.r";
 });
 
 if (window.location.search.includes("code=")) {
