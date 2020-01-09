@@ -1,4 +1,4 @@
-# hc-demo-app-javascript
+# zai-demo-app-javascript
 
 Simple Single Page Application that uses the redirect OAuth flow.
 
