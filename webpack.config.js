@@ -1,26 +1,36 @@
 const path = require("path");
-const Dotenv = require("dotenv-webpack");
 const webpack = require("webpack");
+const Dotenv = require("dotenv-webpack");
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+
+const LAUNCHPAD_URL = process.env.LAUNCHPAD_URL || 'http://localhost:8080/launchpad.js';
 
 let config = {
   entry: "./src/index.js",
   output: {
-    filename: "main.js",
-    path: path.resolve(__dirname, "dist/assets")
+    filename: "bundle.js"
   },
+
+  plugins: [
+    new HtmlWebpackPlugin({
+      hash: true,
+      template: "src/index.html",
+      filename: "index.html",
+      launchpadUrl: LAUNCHPAD_URL
+    })
+  ],
 
   devServer: {
     contentBase: path.join(__dirname, "dist"),
-    publicPath: "/assets/",
     open: true,
     historyApiFallback: true
   }
 };
 
 if (process.env.NODE_ENV === "development") {
-  config.plugins = [new Dotenv()];
+  config.plugins.push(new Dotenv());
 } else {
-  config.plugins = [
+  config.plugins.push(
     new webpack.DefinePlugin({
       "process.env.DIRECTORY_OAUTH_CLIENT_ID": JSON.stringify(
         process.env.DIRECTORY_OAUTH_CLIENT_ID
@@ -33,7 +43,7 @@ if (process.env.NODE_ENV === "development") {
       ),
       "process.env.DIRECTORY_HOST": JSON.stringify(process.env.DIRECTORY_HOST)
     })
-  ];
+  );
 }
 
 module.exports = config;

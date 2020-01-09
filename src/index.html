@@ -1,18 +1,18 @@
 <!doctype html>
 <html>
   <head>
-    <title>Zaiku SPA SSO Demo</title>
+    <title>Zai SPA SSO Demo</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   </head>
-  <body style="padding-top: 50px;">
-    <div class="container" id="login">
+  <body>
+    <div class="container" id="login" style="padding-top: 50px;">
       <h1>Zaiku SPA SSO Demo</h1>
       <button id="login" class="btn btn-primary btn-lg">Login</button>
     </div>
-    <div class="container" id="authenticated_area" style="display: none;">
+    <div class="container" id="authenticated_area" style="display: none;padding-top: 50px;">
       <h1 id="authenticated_area_header"></h1>
       <button id="logout" class="btn btn-primary btn-danger">Logout</button>
     </div>
-    <script src="assets/main.js"></script>
+    <script src="<%= htmlWebpackPlugin.options.launchpadUrl %>"></script>
   </body>
 </html>

@@ -69,6 +69,9 @@ if (window.location.search.includes("code=")) {
       document.getElementById(
         "authenticated_area_header"
       ).innerHTML = `<div>Welcome, ${response.data.full_name}</div>`;
+      if (window.zaiLaunchpad) {
+        window.zaiLaunchpad.setPerson(response.data);
+      }
     });
 
   // When clicking on Logout button...
