@@ -68,7 +68,7 @@ if (window.location.search.includes("code=")) {
         "authenticated_area_header"
       ).innerHTML = `<div>Welcome, ${response.data.full_name}</div>`;
       if (window.zaiLaunchpad) {
-        window.zaiLaunchpad.setPerson(response.data);
+        window.zaiLaunchpad.setup({ personData: response.data, directoryHost: process.env.DIRECTORY_HOST });
       }
     });
 
