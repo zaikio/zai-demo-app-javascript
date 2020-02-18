@@ -33,7 +33,6 @@ if (window.location.search.includes("code=")) {
   axios
     .post(process.env.DIRECTORY_HOST + "/oauth/access_token.json", {
       client_id: process.env.DIRECTORY_OAUTH_CLIENT_ID,
-      client_secret: process.env.DIRECTORY_OAUTH_CLIENT_SECRET,
       code_verifier,
       code
     })
