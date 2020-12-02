@@ -1,12 +1,14 @@
 # zai-demo-app-javascript
 
-Simple Single Page Application that uses the redirect OAuth flow.
+Simple Single Page Application that uses the Zaikio redirect OAuth flow.
+
+[DEMO](https://redirect-flow-demonstrator.zaikio.com)
 
 ## Getting Started
 
-First you must create an app in [directory.heidelberg.cloud](https://directory.heidelberg.cloud/).
+First you must create an app in [hub.zaikio.com](https://hub.zaikio.com/).
 
-Then you need to copy your `DIRECTORY_OAUTH_CLIENT_ID` and `DIRECTORY_OAUTH_CLIENT_SECRET` to an `.env` file.
+Then you need to copy your `DIRECTORY_OAUTH_CLIENT_ID` to an `.env` file.
 
 ```
 $ cp .env.example .env
