@@ -1,25 +1,8 @@
 import pkceChallenge from "pkce-challenge";
 import axios from "axios";
 
-const login = document.getElementById("login");
 const logout = document.getElementById("logout");
 const authenticated_area = document.getElementById("authenticated_area");
-
-// When clicking on Login button...
-login.addEventListener("click", () => {
-  const { code_verifier, code_challenge } = pkceChallenge();
-  // Store code_verifier
-  window.sessionStorage.setItem("code_verifier", code_verifier);
-  // Open the page in a new window, then redirect back to the same page.
-  window.location.href = process.env.DIRECTORY_HOST +
-    "/oauth/authorize?client_id=" +
-    process.env.DIRECTORY_OAUTH_CLIENT_ID +
-    "&redirect_uri=" +
-    process.env.DIRECTORY_REDIRECT_URI +
-    "&code_challenge_method=S256&code_challenge=" +
-    code_challenge +
-    "&scope=directory.person.r";
-});
 
 if (window.location.search.includes("code=")) {
   // When coming back to redirect uri
@@ -34,9 +17,9 @@ if (window.location.search.includes("code=")) {
     .post(process.env.DIRECTORY_HOST + "/oauth/access_token.json", {
       client_id: process.env.DIRECTORY_OAUTH_CLIENT_ID,
       code_verifier,
-      code
+      code,
     })
-    .then(response => {
+    .then((response) => {
       // Store token
       window.sessionStorage.setItem(
         "directory_authentication",
@@ -59,15 +42,24 @@ if (window.location.search.includes("code=")) {
   // Fetch basic data about the authorized person
   axios
     .get(process.env.DIRECTORY_HOST + "/api/v1/person.json")
-    .then(response => {
+    .then((response) => {
       console.log("LOGGED IN AS", response.data);
       authenticated_area.style.display = "block";
-      login.style.display = "none";
       document.getElementById(
         "authenticated_area_header"
       ).innerHTML = `<div>Welcome, ${response.data.full_name}</div>`;
       if (window.zaiLaunchpad) {
-        window.zaiLaunchpad.setup({ loadPersonData: () => response.data, directoryHost: process.env.DIRECTORY_HOST });
+        window.zaiLaunchpad.setup({
+          activeAppName: "redirect_flow_demonstrator",
+          loadPersonData: () => response.data,
+          directoryHost: process.env.DIRECTORY_HOST,
+          helpMenu: [
+            {
+              label: "Developer Hub",
+              url: "https://docs.zaikio.com/",
+            },
+          ],
+        });
       }
     });
 
@@ -76,4 +68,19 @@ if (window.location.search.includes("code=")) {
     window.sessionStorage.removeItem("directory_authentication");
     window.location.href = "/";
   });
+} else {
+  // Initialize SSO with Zaikio
+  const { code_verifier, code_challenge } = pkceChallenge();
+  // Store code_verifier
+  window.sessionStorage.setItem("code_verifier", code_verifier);
+  // Open the page in a new window, then redirect back to the same page.
+  window.location.href =
+    process.env.DIRECTORY_HOST +
+    "/oauth/authorize?client_id=" +
+    process.env.DIRECTORY_OAUTH_CLIENT_ID +
+    "&redirect_uri=" +
+    process.env.DIRECTORY_REDIRECT_URI +
+    "&code_challenge_method=S256&code_challenge=" +
+    code_challenge +
+    "&scope=directory.person.r";
 }
