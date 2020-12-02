@@ -3,7 +3,7 @@ const webpack = require("webpack");
 const Dotenv = require("dotenv-webpack");
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
-const LAUNCHPAD_URL = process.env.LAUNCHPAD_URL || 'http://localhost:8080/launchpad.js';
+const LAUNCHPAD_URL = process.env.LAUNCHPAD_URL || 'https://launchpad.zaikio.com/launchpad.js';
 
 let config = {
   entry: "./src/index.js",
