@@ -48,16 +48,13 @@ if (process.env.NODE_ENV === "development") {
 } else {
   config.plugins.push(
     new webpack.DefinePlugin({
-      "process.env.DIRECTORY_OAUTH_CLIENT_ID": JSON.stringify(
-        process.env.DIRECTORY_OAUTH_CLIENT_ID
-      ),
-      "process.env.DIRECTORY_OAUTH_CLIENT_SECRET": JSON.stringify(
-        process.env.DIRECTORY_OAUTH_CLIENT_SECRET
-      ),
-      "process.env.DIRECTORY_REDIRECT_URI": JSON.stringify(
-        process.env.DIRECTORY_REDIRECT_URI
-      ),
-      "process.env.DIRECTORY_HOST": JSON.stringify(process.env.DIRECTORY_HOST),
+      process: {
+        env: JSON.stringify({
+          DIRECTORY_OAUTH_CLIENT_ID: process.env.DIRECTORY_OAUTH_CLIENT_ID,
+          DIRECTORY_REDIRECT_URI: process.env.DIRECTORY_REDIRECT_URI,
+          DIRECTORY_HOST: process.env.DIRECTORY_HOST,
+        }),
+      },
     })
   );
 }
