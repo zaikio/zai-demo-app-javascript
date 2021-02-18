@@ -23,7 +23,7 @@
   "homepage": "https://github.com/crispymtn/hc-demo-app-javascript#readme",
   "devDependencies": {
     "html-webpack-plugin": "^5.1.0",
-    "webpack": "^5.22.0",
+    "webpack": "^5.23.0",
     "webpack-cli": "^4.5.0",
     "webpack-dev-server": "^3.11.2"
   },
