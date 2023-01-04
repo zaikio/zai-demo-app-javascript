@@ -1,5 +1,5 @@
 {
-  "name": "hc-demo-app-javascript",
+  "name": "zai-redirect-flow-demo",
   "version": "1.0.0",
   "description": "Demo App that shows the OAuth flow and API calls",
   "private": true,
@@ -21,6 +21,9 @@
     "url": "https://github.com/crispymtn/hc-demo-app-javascript/issues"
   },
   "homepage": "https://github.com/crispymtn/hc-demo-app-javascript#readme",
+  "engines": {
+    "node": "16.x"
+  },
   "devDependencies": {
     "html-webpack-plugin": "^5.3.2",
     "webpack": "^5.48.0",
