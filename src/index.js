@@ -37,19 +37,6 @@ if (window.location.search.includes("code=")) {
       document.getElementById(
         "authenticated_area_header"
       ).innerHTML = `<div>Welcome, ${response.data.full_name}</div>`;
-      if (window.zaiLaunchpad) {
-        window.zaiLaunchpad.setup({
-          activeAppName: "redirect_flow_demonstrator",
-          loadPersonData: () => response.data,
-          directoryHost: process.env.DIRECTORY_HOST,
-          helpMenu: [
-            {
-              label: "Developer Hub",
-              url: "https://docs.zaikio.com/",
-            },
-          ],
-        });
-      }
     });
 } else {
   authorize();

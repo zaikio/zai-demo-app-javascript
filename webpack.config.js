@@ -5,9 +5,6 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 process.env.NODE_ENV = process.env.NODE_ENV || "development";
 
-const LAUNCHPAD_URL =
-  process.env.LAUNCHPAD_URL || "https://launchpad.zaikio.com/launchpad.js";
-
 let config = {
   entry: "./src/index.js",
   output: {
@@ -18,8 +15,7 @@ let config = {
     new HtmlWebpackPlugin({
       hash: true,
       template: "src/index.html",
-      filename: "index.html",
-      launchpadUrl: LAUNCHPAD_URL,
+      filename: "index.html"
     }),
   ],
 
