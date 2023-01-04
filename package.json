@@ -31,7 +31,7 @@
     "webpack-dev-server": "^3.11.2"
   },
   "dependencies": {
-    "axios": "^0.21.1",
+    "axios": "^0.21.2",
     "buffer": "^6.0.3",
     "core-js": "^3.16.0",
     "crypto-browserify": "^3.12.0",
