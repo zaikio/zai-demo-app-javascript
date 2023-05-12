@@ -1,7 +1,7 @@
 import pkceChallenge from "pkce-challenge";
 import axios from "axios";
 
-export function authorize() {
+export function authorize(desired_scope = "directory.person.r") {
   // Initialize SSO with Zaikio
   const { code_verifier, code_challenge } = pkceChallenge();
   // Store code_verifier
@@ -15,7 +15,11 @@ export function authorize() {
     process.env.DIRECTORY_REDIRECT_URI +
     "&code_challenge_method=S256&code_challenge=" +
     code_challenge +
-    "&scope=directory.person.r";
+    `&scope=${desired_scope}`;
+}
+
+export function authorize_on_behalf() {
+  authorize("Per>Org.directory.organization.r")
 }
 
 export async function createAccessToken(code) {
@@ -24,19 +28,27 @@ export async function createAccessToken(code) {
   window.sessionStorage.removeItem("code_verifier");
 
   // Use code to create access token
-  return (
-    await axios.post(process.env.DIRECTORY_HOST + "/oauth/access_token.json", {
-      client_id: process.env.DIRECTORY_OAUTH_CLIENT_ID,
-      code_verifier,
-      code,
-    })
-  ).data;
+  const response = await axios.post(process.env.DIRECTORY_HOST + "/oauth/access_token.json", {
+    client_id: process.env.DIRECTORY_OAUTH_CLIENT_ID,
+    code_verifier,
+    code,
+  });
+
+  return response.data
 }
 
 export function getAccessToken() {
   if (window.sessionStorage.getItem("directory_authentication")) {
     return JSON.parse(window.sessionStorage.getItem("directory_authentication"))
       .access_token;
+  }
+}
+
+export function isTokenOnBehalfOf() {
+  if (window.sessionStorage.getItem("directory_authentication")) {
+    return 'bearer_on_behalf_of' in JSON.parse(window.sessionStorage.getItem("directory_authentication"))
+  } else {
+    return false
   }
 }
 
