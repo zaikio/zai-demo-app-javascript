@@ -5,9 +5,14 @@
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   </head>
   <body>
-    <div class="container" id="authenticated_area" style="display: none;padding-top: 50px;">
+    <div class="container" id="authenticated_area" style="padding-top: 50px;" hidden>
       <h1 id="authenticated_area_header"></h1>
       <button id="logout" class="btn btn-primary btn-danger">Logout</button>
+    </div>
+
+    <div class="container" id="unauthenticated_area" style="padding-top: 50px;">
+      <button id="login" class="btn btn-primary">Login</button>
+      <button id="login-on-behalf" class="btn btn-primary">Login on behalf of an organization</button>
     </div>
   </body>
 </html>

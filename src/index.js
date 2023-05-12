@@ -6,16 +6,19 @@ import {
   login,
   logout,
   getAccessToken,
-  isLoggedIn,
+  isLoggedIn, authorize_on_behalf, isTokenOnBehalfOf,
 } from "./auth";
+
+const logoutBtn = document.getElementById("logout");
+const loginBtn = document.getElementById("login");
+const loginOnBehalfBtn = document.getElementById("login-on-behalf");
+const authenticated_area = document.getElementById("authenticated_area");
 
 if (isLoggedIn()) {
   // Provide Authorization header on all future requests
   axios.defaults.headers.common["Authorization"] = "Bearer " + getAccessToken();
 }
 
-const logoutBtn = document.getElementById("logout");
-const authenticated_area = document.getElementById("authenticated_area");
 
 if (window.location.search.includes("code=")) {
   // When coming back to redirect uri
@@ -29,21 +32,51 @@ if (window.location.search.includes("code=")) {
   });
 } else if (isLoggedIn()) {
   // Fetch basic data about the authorized person
-  axios
-    .get(process.env.DIRECTORY_HOST + "/api/v1/person.json")
-    .then((response) => {
-      console.log("LOGGED IN AS", response.data);
-      authenticated_area.style.display = "block";
-      document.getElementById(
-        "authenticated_area_header"
-      ).innerHTML = `<div>Welcome, ${response.data.full_name}</div>`;
+  if(isTokenOnBehalfOf()) {
+    axios
+      .get(process.env.DIRECTORY_HOST + "/api/v1/organization.json")
+      .then((response) => {
+        authenticated_area.hidden = false;
+        document.getElementById(
+            "authenticated_area_header"
+        ).innerHTML = `<div>Welcome, you are authenticated on behalf of ${response.data.name}</div>`;
+        document.getElementById("unauthenticated_area").hidden = true;
+      }).catch(error => {
+        authenticated_area.hidden = false;
+        var errorMessage;
+        if (error.response.status === 403) {
+          errorMessage = `<div>Not enough permissions, ask your administrator to allow the needed scopes.</div>`;
+        } else {
+          errorMessage = `<div>Unexpected error with the request.</div>`;
+        }
+      document.getElementById("authenticated_area_header").innerHTML = errorMessage
+    }).finally(() => {
+      document.getElementById("unauthenticated_area").hidden = true;
     });
-} else {
-  authorize();
+  } else {
+    axios
+      .get(process.env.DIRECTORY_HOST + "/api/v1/person.json")
+      .then((response) => {
+        authenticated_area.hidden = false;
+        document.getElementById(
+          "authenticated_area_header"
+        ).innerHTML = `<div>Welcome, ${response.data.full_name}</div>`;
+        document.getElementById("unauthenticated_area").hidden = true;
+      });
+  }
+
 }
 
 // When clicking on Logout button...
 logoutBtn.addEventListener("click", () => {
   logout();
   window.location.href = "/";
+});
+
+loginBtn.addEventListener("click", () => {
+  authorize();
+});
+
+loginOnBehalfBtn.addEventListener("click", () => {
+  authorize_on_behalf();
 });
