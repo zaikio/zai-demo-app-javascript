@@ -1,7 +1,7 @@
 import pkceChallenge from "pkce-challenge";
 import axios from "axios";
 
-export function authorize(desired_scope = "directory.person.r") {
+export function authorize(desired_scope = "zaikio.person.r") {
   // Initialize SSO with Zaikio
   const { code_verifier, code_challenge } = pkceChallenge();
   // Store code_verifier
@@ -19,7 +19,7 @@ export function authorize(desired_scope = "directory.person.r") {
 }
 
 export function authorize_on_behalf() {
-  authorize("Per>Org.directory.organization.r")
+  authorize("Per>Org.zaikio.organization.r")
 }
 
 export async function createAccessToken(code) {
