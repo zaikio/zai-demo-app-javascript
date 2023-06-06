@@ -19,7 +19,7 @@ export function authorize(desired_scope = "zaikio.person.r") {
 }
 
 export function authorize_on_behalf() {
-  authorize("Per>Org.zaikio.organization.r")
+  authorize("Per>Org.zaikio.organization.r,Per>Org.zaikio.person.r")
 }
 
 export async function createAccessToken(code) {
